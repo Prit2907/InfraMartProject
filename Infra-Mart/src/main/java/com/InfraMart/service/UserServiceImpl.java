@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService
 		User user=udao.findByEmail(u);
 		if(user!=null)
 		{
-//			user.setProductlist(plist);
+			user.setProductlist(plist);
 			udao.save(user);
 			return 1;
 		}

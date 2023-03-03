@@ -32,13 +32,21 @@ public class InfraProfileController
 	@PutMapping("/addtocart")
 	public ResponseEntity<String> addToCart(@RequestBody List<Product> plist, @RequestHeader String u)
 	{
-		System.out.println(u);
+		long total=0;
+		for(Product p:plist)
+		{
+			//Have to add quantity also and accordingly total bill should be returned
+			//After plist gets added to user admin not able to retrieve allusers
+			System.out.println(p.getProductPrice()+"------"+p.getProductUnit());
+			total+=p.getProductPrice();
+		}
+		System.out.println(total);
 		User user=userService.findByEmail(u);
 		int n = userService.addTocart(plist,u);
 		if(n>0)
 		{
-			return new ResponseEntity("Items added to cart successfully",HttpStatus.OK);
+			return new ResponseEntity("Items added to cart successfully"+total,HttpStatus.OK);
 		}
-		return new ResponseEntity("Items added to cart successfully",HttpStatus.NOT_FOUND);
+		return new ResponseEntity("User session ended",HttpStatus.NOT_FOUND);
 	}
 }

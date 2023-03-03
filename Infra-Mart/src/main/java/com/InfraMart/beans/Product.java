@@ -53,16 +53,16 @@ public class Product
 	
 	}
 
-	public Product(String productName, String productDescription,long productPrice,int productUnit, byte[] img, Category category, List<User> userlist) {
-		super();
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.productPrice = productPrice;
-		this.productUnit = productUnit;
-		this.img = img;
-		this.category = category;
-		this.userlist = userlist;
-	}
+//	public Product(String productName, String productDescription,long productPrice,int productUnit, byte[] img, Category category, List<User> userlist) {
+//		super();
+//		this.productName = productName;
+//		this.productDescription = productDescription;
+//		this.productPrice = productPrice;
+//		this.productUnit = productUnit;
+//		this.img = img;
+//		this.category = category;
+//		this.userlist = userlist;
+//	}
 
 	public long getProductId() {
 		return productId;
