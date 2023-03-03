@@ -43,7 +43,7 @@ public class Product
 
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="categoryId")
-	private Category category;
+	private Category category=new Category();
 	
 	@ManyToMany(mappedBy="productlist",fetch=FetchType.EAGER)
 	private List<User> userlist;

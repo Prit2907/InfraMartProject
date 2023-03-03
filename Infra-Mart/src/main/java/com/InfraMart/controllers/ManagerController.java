@@ -22,7 +22,7 @@ import com.InfraMart.service.ProductService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/")
 public class ManagerController
 {
 	@Autowired

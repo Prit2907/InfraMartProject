@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.InfraMart.beans.Product;
 import com.InfraMart.beans.User;
 import com.InfraMart.dao.UserDao;
 
@@ -27,8 +28,8 @@ public class UserServiceImpl implements UserService
 	//finds User by Email wherever needed(used in HomeController)
 	@Override
 	public User findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return udao.findByEmail(email);
 	}
 
 	//to Register user in HomeController (should add register method in both home and admin instead addNewUser)
@@ -79,11 +80,46 @@ public class UserServiceImpl implements UserService
 		{
 			User user=op.get();	
 			user.setRole(u.getRole());
+//			user.setPassword(u.getPassword());  from forgot controller but not good idea
 			udao.save(user);
 			return 1;
 		}
 		return 0;
 	}
+
+	@Override
+	public int updateById(User user)
+	{
+		Optional<User> u=udao.findById(user.getUserId());
+		if(u.isPresent())
+		{
+			User us=u.get();
+			us.setPassword(user.getPassword());
+			
+			udao.save(us);
+			return 1;
+		}
+		
+		return 0;
+	}
+
+	
+	@Override
+	public int addTocart(List<Product> plist, long userId) 
+	{
+		Optional<User> u=udao.findById(userId);
+		if(u.isPresent())
+		{
+			User us=u.get();
+			us.setProductlist(plist);
+			
+			udao.save(us);
+			return 1;
+		}
+		
+		return 0;
+	}
+
 	
 	
 	

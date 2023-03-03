@@ -2,6 +2,7 @@ package com.InfraMart.service;
 
 import java.util.List;
 
+import com.InfraMart.beans.Product;
 import com.InfraMart.beans.User;
 
 public interface UserService 
@@ -17,6 +18,11 @@ public interface UserService
 	public void deleteById(long userId);
 
 	public int updateUserById(User u);
+
+	public int updateById(User user);
+
+	public int addTocart(List<Product> plist, long userId);
+
 
 
 

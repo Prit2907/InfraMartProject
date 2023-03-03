@@ -1,5 +1,6 @@
 package com.InfraMart.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,30 +14,29 @@ public class Checkout
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long chkoutId;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String firstName;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String lastName;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String address;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String city;
 	
 	@NotNull
 	private int pinCode;
 	
-	@NotNull
+	@Column(nullable=false)
 	private String contactNo;
 
 	public Checkout() {
 		super();
 	}
 
-	public Checkout(@NotNull String firstName, @NotNull String lastName, @NotNull String address, @NotNull String city,
-			@NotNull int pinCode, @NotNull String contactNo) {
+	public Checkout(String firstName, String lastName, String address, String city, int pinCode, String contactNo) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

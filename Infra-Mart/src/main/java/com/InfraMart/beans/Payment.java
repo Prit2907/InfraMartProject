@@ -19,13 +19,13 @@ public class Payment
 	@Column(nullable=false,length=50)
 	private String name;
 	
-	@NotNull
+	 @Column(nullable = false,length = 50)
 	private long cardNum;
 	
-	@NotNull
+	 @Column(nullable = false,length = 50)
 	private Date expiryDate;
 	
-	@NotNull
+	 @Column(nullable = false,length = 50)
 	private int cvv;
 
 	public Payment() 
@@ -33,7 +33,7 @@ public class Payment
 	
 	}
 
-	public Payment(String name, @NotNull long cardNum, @NotNull Date expiryDate, @NotNull int cvv) {
+	public Payment(String name,long cardNum,Date expiryDate,int cvv) {
 		super();
 		this.name = name;
 		this.cardNum = cardNum;

@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -13,26 +16,26 @@ import javax.validation.constraints.NotNull;
 public class Category 
 {
 	@Id
-	@Column(nullable=false)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long categoryId;
 	
 	@Column(nullable=false)
 	private String categoryName;
 	
-	@OneToMany(mappedBy="category",cascade=CascadeType.ALL)
-	private List<Product> productlist;
+//	@OneToMany(mappedBy="category",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+//	private List<Product> productlist;
 	
 	public Category() 
 	{
 	
 	}
 	
-//	public Category(int categoryId,String categoryName, List<Product> productlist) {
-//		super();
-//		this.categoryId = categoryId;
-//		this.categoryName = categoryName;
+	public Category(int categoryId,String categoryName, List<Product> productlist) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
 //		this.productlist = productlist;
-//	}
+	}
 
 	public Category(long categoryId,String categoryName) 
 	{
@@ -58,17 +61,17 @@ public class Category
 		this.categoryName = categoryName;
 	}
 
-	public List<Product> getProductlist() {
-		return productlist;
-	}
-
-	public void setProductlist(List<Product> productlist) {
-		this.productlist = productlist;
-	}
+	/*
+	 * public List<Product> getProductlist() { return productlist; }
+	 * 
+	 * public void setProductlist(List<Product> productlist) { this.productlist =
+	 * productlist; }
+	 */
 	
 	@Override
 	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", productlist=" + productlist
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName
+				+ ", productlist=" /* + productlist */
 				+ "]";
 	}
 }

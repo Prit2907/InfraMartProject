@@ -20,7 +20,7 @@ import com.InfraMart.service.UserService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController 
 {
 	@Autowired
