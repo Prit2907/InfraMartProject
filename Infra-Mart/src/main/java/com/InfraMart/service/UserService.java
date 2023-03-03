@@ -21,7 +21,7 @@ public interface UserService
 
 	public int updateById(User user);
 
-	public int addTocart(List<Product> plist, long userId);
+	public int addTocart(List<Product> plist, String u);
 
 
 

@@ -28,7 +28,7 @@ import com.InfraMart.service.UserService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/")
 public class AdminController 
 {
 	@Autowired

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.InfraMart.beans.Product;
 import com.InfraMart.beans.User;
+import com.InfraMart.dao.UserDao;
 import com.InfraMart.service.UserService;
 
 
@@ -25,10 +26,15 @@ public class InfraProfileController
 	@Autowired
 	private UserService userService;
 	
+//	@Autowired
+//	private UserDao udao;
+	
 	@PutMapping("/addtocart")
-	public ResponseEntity<String> addToCart(@RequestBody List<Product> plist,@RequestHeader long userId)
+	public ResponseEntity<String> addToCart(@RequestBody List<Product> plist, @RequestHeader String u)
 	{
-		int n=userService.addTocart(plist,userId);
+		System.out.println(u);
+		User user=userService.findByEmail(u);
+		int n = userService.addTocart(plist,u);
 		if(n>0)
 		{
 			return new ResponseEntity("Items added to cart successfully",HttpStatus.OK);

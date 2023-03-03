@@ -22,19 +22,24 @@ public class Category
 	@Column(nullable=false)
 	private String categoryName;
 	
-//	@OneToMany(mappedBy="category",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-//	private List<Product> productlist;
+	@OneToMany(mappedBy="category",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private List<Product> productlist;
 	
 	public Category() 
 	{
 	
+	}
+	public Category(String categoryName) 
+	{
+		super();
+		this.categoryName = categoryName;
 	}
 	
 	public Category(int categoryId,String categoryName, List<Product> productlist) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-//		this.productlist = productlist;
+		this.productlist = productlist;
 	}
 
 	public Category(long categoryId,String categoryName) 

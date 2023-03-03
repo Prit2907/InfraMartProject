@@ -20,7 +20,7 @@ import com.InfraMart.service.UserService;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/home")
 public class HomeController 
 {
 	@Autowired
@@ -53,7 +53,7 @@ public class HomeController
 //		System.out.println(u1.getEmail()+"   "+u1.getPassword());
 //		System.out.println(u.getPassword());
 		if(u1!=null)
-		{
+		{	
 			if(passwordEncoder.matches(u.getPassword(),u1.getPassword()))
 			{
 				return ResponseEntity.ok(u1);

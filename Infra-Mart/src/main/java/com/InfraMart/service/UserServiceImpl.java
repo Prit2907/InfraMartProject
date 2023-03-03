@@ -105,18 +105,23 @@ public class UserServiceImpl implements UserService
 
 	
 	@Override
-	public int addTocart(List<Product> plist, long userId) 
+	public int addTocart(List<Product> plist, String u) 
 	{
-		Optional<User> u=udao.findById(userId);
-		if(u.isPresent())
+		/*
+		 * Optional<User> u1=udao.findById(u.getUserId()); if(u.isPresent()) { User
+		 * us=u.get(); us.setProductlist(plist);
+		 * 
+		 * udao.save(us); return 1; }
+		 * 
+		 * return 0;
+		 */
+		User user=udao.findByEmail(u);
+		if(user!=null)
 		{
-			User us=u.get();
-			us.setProductlist(plist);
-			
-			udao.save(us);
+//			user.setProductlist(plist);
+			udao.save(user);
 			return 1;
 		}
-		
 		return 0;
 	}
 
