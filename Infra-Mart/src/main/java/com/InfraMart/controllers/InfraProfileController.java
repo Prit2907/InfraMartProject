@@ -42,6 +42,7 @@ public class InfraProfileController
 		}
 		System.out.println(total);
 		User user=userService.findByEmail(u);
+		
 		int n = userService.addTocart(plist,u);
 		if(n>0)
 		{
