@@ -88,18 +88,11 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public int updateById(User user)
-	{
-		Optional<User> u=udao.findById(user.getUserId());
-		if(u.isPresent())
-		{
-			User us=u.get();
-			us.setPassword(user.getPassword());
-			
-			udao.save(us);
+	public int updateById(User user) {
+		if(user!=null) {
+			udao.save(user);
 			return 1;
 		}
-		
 		return 0;
 	}
 
