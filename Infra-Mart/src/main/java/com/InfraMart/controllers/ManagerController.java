@@ -1,5 +1,7 @@
 package com.InfraMart.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.InfraMart.beans.Category;
+import com.InfraMart.beans.ImageData;
 import com.InfraMart.beans.Product;
+import com.InfraMart.config.ImageUtils;
 import com.InfraMart.service.CategoryService;
 import com.InfraMart.service.ProductService;
 
@@ -79,17 +85,49 @@ public class ManagerController
 	//product crud by admin
 	//admin adds product 
 	@PostMapping("/addproduct")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product)
+	public ResponseEntity<Product> addProduct(@RequestParam("productName") String pn,@RequestParam("productDescription") String pd,@RequestParam("productPrice") long pp
+			,@RequestParam("productUnit") int pu,@RequestParam("category") String s1,@RequestParam("image")MultipartFile file)
 	{
-		//we have to give select tag in front end so we can select category and thereby categoryId
+		System.out.println(pn);
+		System.out.println(pd);
+		System.out.println(pp);
+		System.out.println(pu);
+		System.out.println(file.getContentType());
 
-		Product prd=productService.addProduct(product);
-		if(prd!=null)
-		{
-			return new ResponseEntity("Product added successfuly!!",HttpStatus.OK);
+		Product p=new Product();
+		p.setProductName(pn);
+		p.setProductDescription(pd);
+		p.setProductPrice(pp);
+		p.setProductUnit(pu);
+		System.out.println(s1);
+		Category c=new Category();
+		c.setCategoryName(s1);
+		p.setCategory(c);
+		//		System.out.println(product.getProductName());
+		//		@RequestBody Product product,
+		//we have to give select tag in front end so we can select category and thereby categoryId
+		try {
+			ImageData img=(ImageData.builder()
+					.name(file.getOriginalFilename())
+					.type(file.getContentType())
+					.imageData(ImageUtils.compressImage(file.getBytes())).build());
+
+			System.out.println(file.getOriginalFilename());
+			System.out.println(ImageUtils.compressImage(file.getBytes()));
+			p.setImg(img);
+			Product prd=productService.addProduct(p);
+			if(prd!=null)
+			{
+				return ResponseEntity.ok(prd);
+			}
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 
@@ -97,8 +135,28 @@ public class ManagerController
 	@GetMapping("/displayproduct")
 	public ResponseEntity<List<Product>> getAllProducts()
 	{
+
+		List<Product>plist1=new ArrayList<>();
+
 		List<Product> plist=productService.displayAllProducts();
-		return ResponseEntity.ok(plist);
+		//		Product p1=new Product();
+
+		for(Product p:plist)
+		{
+
+			ImageData img=p.getImg();
+			ImageData img1=(ImageData.builder()
+					.imgid(img.getImgid())
+					.name(img.getName())
+					.type(img.getType())
+					.imageData(ImageUtils.decompressImage(img.getImageData())).build());
+			p.setImg(img1);
+			plist1.add(p);
+		}
+
+		return ResponseEntity.status(HttpStatus.OK)
+
+				.body(plist1);
 	}
 
 

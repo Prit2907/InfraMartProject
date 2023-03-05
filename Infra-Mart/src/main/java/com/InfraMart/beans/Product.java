@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -36,14 +37,13 @@ public class Product
 	@Column(nullable=false)
 	private int productUnit;
 	
-	@Lob
-	@Basic(fetch=FetchType.LAZY)
-	@Column(name = "image"/* ,columnDefinition="BLOB NOT NULL" */)
-	private byte[] img; 
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="imageid")
+    private ImageData image; 
 
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="categoryId")
-	private Category category=new Category();
+	private Category category;
 	
 	@ManyToMany(mappedBy="productlist",fetch=FetchType.EAGER)
 	private List<User> userlist;
@@ -53,16 +53,16 @@ public class Product
 	
 	}
 
-//	public Product(String productName, String productDescription,long productPrice,int productUnit, byte[] img, Category category, List<User> userlist) {
-//		super();
-//		this.productName = productName;
-//		this.productDescription = productDescription;
-//		this.productPrice = productPrice;
-//		this.productUnit = productUnit;
-//		this.img = img;
-//		this.category = category;
-//		this.userlist = userlist;
-//	}
+	public Product(String productName, String productDescription,long productPrice,int productUnit, ImageData img, Category category, List<User> userlist) {
+		super();
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.productPrice = productPrice;
+		this.productUnit = productUnit;
+		this.image = img;
+		this.category = category;
+		this.userlist = userlist;
+	}
 
 	public long getProductId() {
 		return productId;
@@ -104,12 +104,14 @@ public class Product
 		this.productUnit = productUnit;
 	}
 
-	public byte[] getImg() {
-		return img;
+	
+
+	public ImageData getImg() {
+		return image;
 	}
 
-	public void setImg(byte[] img) {
-		this.img = img;
+	public void setImg(ImageData img) {
+		this.image = img;
 	}
 
 	public Category getCategory() {
@@ -132,9 +134,10 @@ public class Product
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productDescription="
 				+ productDescription + ", productPrice=" + productPrice + ", productUnit=" + productUnit + ", img="
-				+ Arrays.toString(img) + ", category=" + category + ", userlist=" + userlist + "]";
+				+ image + ", category=" + category + ", userlist=" + userlist + "]";
 	}
-	
+
+
 	
 	
 	
