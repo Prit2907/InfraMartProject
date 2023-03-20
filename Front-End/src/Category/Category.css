@@ -1,0 +1,43 @@
+#tbl,th,td{
+    background-color: rgb(175, 245, 109);
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-left: 500px;
+    /* margin: auto; */
+
+  }
+  #addcategory{
+    background-color: black;
+    color: wheat;
+    margin-left: 600px;
+    border-color: black;
+    width: 150px;
+    border-width: 20px;
+    
+    border-style: double;
+    border: 20px;
+  }
+  #deletecategory{
+    background-color: red;
+    border-style: double;
+    margin-left: 15px;
+    border: 2px;
+    
+  }
+  /* .managecattbl{
+    background-color: blanchedalmond;
+    
+  } */
+  #backToAdmin12{
+    background-color: black;
+    width: 150px;
+    margin-top: 10px;
+    margin-left: 600px;
+    color: wheat;
+   
+    border-color: black;
+    border-width: 20px;
+    
+    border-style: double;
+    border: 20px;
+  }

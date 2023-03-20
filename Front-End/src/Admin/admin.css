@@ -1,0 +1,17 @@
+.admintable{
+  background-image: url("https://e7.pngegg.com/pngimages/82/448/png-clipart-computer-technician-logo-illustration-system-administrator-database-administrator-computer-icons-administration-miscellaneous-computer-network.png"); 
+  background-size: cover;
+  background-color: aquamarine;
+    margin-top: 50px;
+    margin-left: 400px;
+    /* margin: auto; */
+    
+    width: 600px;
+    height: 400px;
+}
+
+#adminurl{
+    
+    margin-left: 40px;
+
+}

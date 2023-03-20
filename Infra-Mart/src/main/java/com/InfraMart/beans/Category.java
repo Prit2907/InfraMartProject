@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
 @Entity
 public class Category 
 {
@@ -19,11 +21,12 @@ public class Category
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long categoryId;
 	
-	@Column(nullable=false)
+	@Column(nullable=false,unique = true)
 	private String categoryName;
 	
-	@OneToMany(mappedBy="category",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="category",cascade=CascadeType.ALL)
 	private List<Product> productlist;
+	
 	
 	public Category() 
 	{
@@ -54,7 +57,7 @@ public class Category
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
 	}
 

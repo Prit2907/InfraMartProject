@@ -30,8 +30,6 @@ public class ImageData {
     private String type;
     
     
-    
-  
     @Lob
     @Column(name = "imagedata", length = Integer.MAX_VALUE, nullable = true)
     private byte[] imageData;

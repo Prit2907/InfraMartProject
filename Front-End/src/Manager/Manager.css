@@ -1,0 +1,22 @@
+/* table{
+    background-color: rgb(142, 214, 226);
+    border: 2px solid black;
+    margin-top: 20px;
+    margin-left: 200px;
+    /* margin: auto; */
+
+ .managertable {
+
+  background-image: url(https://images.sampletemplates.com/wp-content/uploads/2021/09/Building-Construction-Proposal-Samples.jpg);
+  background-size: cover;
+  background-color: rgb(216, 41, 187);
+  margin-top: 50px;
+  margin-left: 350px;
+  width: 700px;
+  height: 400px;
+}
+#adminurl{
+  
+  size: 500px;
+  width: 60px;
+}

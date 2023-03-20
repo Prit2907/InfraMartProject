@@ -54,7 +54,7 @@ public class User
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date registerDate;
 	
-	@ManyToMany(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(name="userProduct",joinColumns=@JoinColumn(name="userId"),inverseJoinColumns=@JoinColumn(name="productId"))
 	private List<Product> productlist;
 

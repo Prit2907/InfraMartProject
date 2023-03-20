@@ -1,0 +1,14 @@
+.about{
+    background-color: rgb(245, 238, 235);
+    color: black;
+
+}
+.about{
+    background-image: url("https://images.unsplash.com/photo-1508306815155-0a7bc4e00de1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDl8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80");
+    background-size: cover;
+
+    margin-top: 10px;
+    margin-left: 250px;
+    width: 1000px;
+    height: 550px;
+}

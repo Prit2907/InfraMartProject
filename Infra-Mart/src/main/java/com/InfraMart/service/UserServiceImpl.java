@@ -1,5 +1,6 @@
 package com.InfraMart.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +99,7 @@ public class UserServiceImpl implements UserService
 
 	
 	@Override
-	public int addTocart(List<Product> plist, String u) 
+	public User addTocart(List<Product> plist, String u) 
 	{
 		/*
 		 * Optional<User> u1=udao.findById(u.getUserId()); if(u.isPresent()) { User
@@ -108,14 +109,28 @@ public class UserServiceImpl implements UserService
 		 * 
 		 * return 0;
 		 */
+		 System.out.println(u);
 		User user=udao.findByEmail(u);
-		if(user!=null)
+	
+		long total=0;
+		for(Product p:plist)
 		{
-			user.setProductlist(plist);
-			udao.save(user);
-			return 1;
+			//Have to add quantity also and accordingly total bill should be returned
+			//After plist gets added to user admin not able to retrieve allusers
+			System.out.println(p.getProductPrice()+"------"+p.getProductUnit());
+			total+=p.getProductPrice();
+			System.out.println(p.getProductName());
+//			System.out.println(p.getCart().getCost());
+//			System.out.println(p.getCart().getQuantity());
 		}
-		return 0;
+		if(user!=null)
+		{ System.out.println(u);
+			user.setProductlist(plist);
+//			udao.save(user);
+			System.out.println(u);
+			return udao.save(user);
+		}
+		return null;
 	}
 
 	

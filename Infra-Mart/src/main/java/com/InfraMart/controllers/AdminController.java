@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,8 @@ import com.InfraMart.config.ImageUtils;
 import com.InfraMart.service.CategoryService;
 import com.InfraMart.service.ProductService;
 import com.InfraMart.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -79,7 +82,7 @@ public class AdminController
 
 
 	//to update user role
-	@PutMapping("/updateuser") 
+	@PostMapping("/updateuser") 
 	public ResponseEntity<String> updateById(@RequestBody User u)
 	{
 		int n=userService.updateUserById(u);
@@ -146,35 +149,66 @@ public class AdminController
 
 	@PostMapping("/addproduct")
 	public ResponseEntity<Product> addProduct(@RequestParam("productName") String pn,@RequestParam("productDescription") String pd,@RequestParam("productPrice") long pp
-			,@RequestParam("productUnit") int pu,@RequestParam("category") String s1,@RequestParam("image")MultipartFile file)
+			,@RequestParam("productUnit") int pu,@RequestParam("categoryId") String s1,@RequestParam("image") MultipartFile imageFile)
+//	(@RequestParam("product") String product, @RequestParam("image") MultipartFile imageFile)
+//	(@RequestBody Product product, @RequestParam("file") MultipartFile imageFile)
 	{
+//		Product product1 = null ;
+//		try {
+//			product1 = new ObjectMapper().readValue(product, Product.class);
+//			
+//			
+//			
+//		} catch (JsonProcessingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
 		System.out.println(pn);
 		System.out.println(pd);
 		System.out.println(pp);
 		System.out.println(pu);
-		System.out.println(file.getContentType());
-
-		Product p=new Product();
+		System.out.println(imageFile.getContentType());
+		long l1=Long.parseLong(s1);
+		Product p=new Product();  
 		p.setProductName(pn);
 		p.setProductDescription(pd);
 		p.setProductPrice(pp);
+		
+		
 		p.setProductUnit(pu);
-		System.out.println(s1);
+		System.out.println(l1);
 		Category c=new Category();
-		c.setCategoryName(s1);
+		c.setCategoryId(l1);
 		p.setCategory(c);
 		//		System.out.println(product.getProductName());
 		//		@RequestBody Product product,
 		//we have to give select tag in front end so we can select category and thereby categoryId
+		
+		System.out.println(imageFile.getName());
+		System.out.println(imageFile.getOriginalFilename());
+//		System.out.println(product1.getProductName());
+//		System.out.println(product1.getProductDescription());
+//		System.out.println(product1.getProductPrice());
+//		System.out.println(product1.getProductUnit());
+		System.out.println(imageFile.getContentType());
+
+//		Product p=new Product();
+//		p.setProductName(product1.getProductName());
+//		p.setProductDescription(product1.getProductDescription());
+//		p.setProductPrice(product1.getProductPrice());
+//		p.setProductUnit(product1.getProductUnit());
+//		System.out.println(product1.getProductUnit());
+		
 		try {
 			ImageData img=(ImageData.builder()
-					.name(file.getOriginalFilename())
-					.type(file.getContentType())
-					.imageData(ImageUtils.compressImage(file.getBytes())).build());
+					.name(imageFile.getOriginalFilename())
+					.type(imageFile.getContentType())
+					.imageData(ImageUtils.compressImage(imageFile.getBytes())).build());
 
-			System.out.println(file.getOriginalFilename());
-			System.out.println(ImageUtils.compressImage(file.getBytes()));
-			p.setImg(img);
+			System.out.println(imageFile.getOriginalFilename());
+			System.out.println(ImageUtils.compressImage(imageFile.getBytes()));
+			p.setImage(img);
 			Product prd=productService.addProduct(p);
 			if(prd!=null)
 			{
@@ -204,13 +238,13 @@ public class AdminController
 		for(Product p:plist)
 		{
 
-			ImageData img=p.getImg();
+			ImageData img=p.getImage();
 			ImageData img1=(ImageData.builder()
 					.imgid(img.getImgid())
 					.name(img.getName())
 					.type(img.getType())
 					.imageData(ImageUtils.decompressImage(img.getImageData())).build());
-			p.setImg(img1);
+			p.setImage(img1);
 			plist1.add(p);
 		}
 
