@@ -28,34 +28,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests()
-			.antMatchers("/index.html","/signup.html","/login.html","/resources/**").permitAll()
-			.antMatchers("/profile/**").authenticated()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN")
-			.and()
-			.formLogin()
 			
-			.loginPage("/login")
-			
-			// .defaultSuccessUrl("index")
-			
-			.usernameParameter("email")
-			.passwordParameter("password")
-			
-
-			.and()
-
-			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		
-			.logoutSuccessUrl("/login")
-
-			// .loginSuccessUrl("/index")
-
-
-              
-			.and()
 			.rememberMe().tokenValiditySeconds(30000).key("WhatEver!")
 			.rememberMeParameter("checkRememberMe");
 			http.csrf().disable();
